@@ -1,22 +1,24 @@
 package com.app.models;
 
+import com.app.models.books.Book;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
-@Table(name = "libraries")
+@Table(name = "comments")
 @Data
-public class Library {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String content;
+    private String date;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="id_book")
+    private Book book;
+
+    @ManyToOne
     @JoinColumn(name="id_user")
     private User user;
-
-    @OneToMany(mappedBy = "library")
-    private List<Borrowing> borrowings;
 }
