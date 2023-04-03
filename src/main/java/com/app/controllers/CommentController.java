@@ -1,7 +1,9 @@
 package com.app.controllers;
 
 import com.app.models.Comment;
+import com.app.models.books.Book;
 import com.app.services.CommentService;
+import com.app.services.books.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,14 +15,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
+    private final BookService bookService;
 
     @GetMapping
-    public List<Comment> getAll() {
+    public List<Comment> findAll() {
         return commentService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Comment getById(@PathVariable Long id) {
+    public Comment findById(@PathVariable Long id) {
         return commentService.findById(id).orElse(null);
     }
 

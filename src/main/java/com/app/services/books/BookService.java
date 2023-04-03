@@ -1,6 +1,9 @@
 package com.app.services.books;
 
+import com.app.models.Comment;
 import com.app.models.books.Book;
+import com.app.models.books.BookDetails;
+import com.app.repositories.CommentRepository;
 import com.app.repositories.books.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

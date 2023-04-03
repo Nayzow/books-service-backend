@@ -20,12 +20,12 @@ public class EditorController {
     private final EditorDetailsService editorDetailsService;
 
     @GetMapping
-    public List<Editor> getAll() {
-        return editorService.findAll();
+    public List<Editor> findAll(@RequestParam(required = false) String name) {
+        return editorService.findAll(name);
     }
 
     @GetMapping("/{id}")
-    public EditorDetails getById(@PathVariable Long id) {
+    public EditorDetails findById(@PathVariable Long id) {
         return editorDetailsService.findById(id).orElse(null);
     }
 

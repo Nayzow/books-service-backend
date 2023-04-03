@@ -1,10 +1,12 @@
 package com.app.services.books;
 
+import com.app.models.Comment;
 import com.app.models.books.BookDetails;
 import com.app.repositories.books.BookDetailsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,5 +16,10 @@ public class BookDetailsService {
 
     public Optional<BookDetails> findById(Long id) {
         return bookDetailsRepository.findById(id);
+    }
+
+    public List<Comment> findAllCommentsByBookId(Long id) {
+        BookDetails bookDetails = bookDetailsRepository.findById(id).orElseThrow(() -> new RuntimeException("Commentaires introuvables"));
+        return bookDetails.getComments();
     }
 }

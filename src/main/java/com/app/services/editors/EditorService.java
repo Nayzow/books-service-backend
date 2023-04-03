@@ -2,6 +2,7 @@ package com.app.services.editors;
 
 import com.app.models.editors.Editor;
 import com.app.repositories.editors.EditorRepository;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,10 @@ import java.util.Optional;
 public class EditorService {
     private final EditorRepository editorRepository;
 
-    public List<Editor> findAll() {
+    public List<Editor> findAll(String name) {
+        if(StringUtils.isNotBlank(name)) {
+            return this.editorRepository.findByNameContaining(name);
+        }
         return editorRepository.findAll();
     }
 

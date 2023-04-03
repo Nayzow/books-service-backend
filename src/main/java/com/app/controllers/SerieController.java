@@ -22,12 +22,12 @@ public class SerieController {
     private final SerieMinimalService serieMinimalService;
 
     @GetMapping
-    public List<SerieMinimal> getAll() {
-        return serieMinimalService.findAll();
+    public List<SerieMinimal> findAll(@RequestParam(required = false) String name) {
+        return serieMinimalService.findAll(name);
     }
 
     @GetMapping("/{id}")
-    public SerieDetails getById(@PathVariable Long id) {
+    public SerieDetails findById(@PathVariable Long id) {
         return serieDetailsService.findById(id).orElse(null);
     }
 

@@ -15,12 +15,12 @@ public class LibraryController {
     private final LibraryService libraryService;
 
     @GetMapping
-    public List<Library> getAll() {
+    public List<Library> findAll() {
         return libraryService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Library getById(@PathVariable Long id) {
+    public Library findById(@PathVariable Long id) {
         return libraryService.findById(id).orElse(null);
     }
 

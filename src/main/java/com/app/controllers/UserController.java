@@ -1,6 +1,6 @@
 package com.app.controllers;
 
-import com.app.models.User;
+import com.app.models.users.User;
 import com.app.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +15,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<User> findAll() {
         return userService.findAll();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public User findById(@PathVariable Long id) {
         return userService.findById(id).orElse(null);
     }
 

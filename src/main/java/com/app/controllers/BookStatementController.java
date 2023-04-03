@@ -15,12 +15,12 @@ public class BookStatementController {
     private final BookStatementService bookStatementService;
 
     @GetMapping
-    public List<BookStatement> getAll() {
+    public List<BookStatement> findAll() {
         return bookStatementService.findAll();
     }
 
     @GetMapping("/{id}")
-    public BookStatement getById(@PathVariable Long id) {
+    public BookStatement findById(@PathVariable Long id) {
         return bookStatementService.findById(id).orElse(null);
     }
 

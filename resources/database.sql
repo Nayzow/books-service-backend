@@ -3,8 +3,9 @@ CREATE DATABASE library;
 CREATE TABLE library.users
 (
     id       BIGINT AUTO_INCREMENT,
-    login    VARCHAR(200) NOT NULL,
+    username VARCHAR(200) NOT NULL,
     password VARCHAR(200) NOT NULL,
+    image    VARCHAR(500) NOT NULL DEFAULT 'https://drive.google.com/uc?export=view&id=1kWAD-v4gugA_edk33b0O-KAtQZxVUiuF',
     role     VARCHAR(150) NOT NULL DEFAULT 'utilisateur',
     PRIMARY KEY (id)
 );
@@ -19,18 +20,20 @@ CREATE TABLE library.libraries
 
 CREATE TABLE library.editors
 (
-    id    BIGINT AUTO_INCREMENT,
-    name  VARCHAR(200) NOT NULL,
-    image VARCHAR(300) NOT NULL,
+    id          BIGINT AUTO_INCREMENT,
+    name        VARCHAR(200)  NOT NULL,
+    description VARCHAR(3000) NOT NULL,
+    image       VARCHAR(300)  NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE library.series
 (
-    id        BIGINT AUTO_INCREMENT,
-    id_editor BIGINT NOT NULL,
-    name      VARCHAR(200),
-    image     VARCHAR(300),
+    id          BIGINT AUTO_INCREMENT,
+    id_editor   BIGINT        NOT NULL,
+    name        VARCHAR(200)  NOT NULL,
+    description VARCHAR(3000) NOT NULL,
+    image       VARCHAR(300),
     PRIMARY KEY (id),
     FOREIGN KEY (id_editor) REFERENCES editors (id)
 );
@@ -83,22 +86,33 @@ CREATE TABLE library.borrowings
     FOREIGN KEY (id_library) REFERENCES libraries (id)
 );
 
-
 -- Ajout des éditeurs
-INSERT INTO library.editors (name, image)
-VALUES ('DC Comics', 'https://drive.google.com/uc?export=view&id=19V3mjqeLku58mZJuIgTSQRM__r2Ekd6M');
-INSERT INTO library.editors (name, image)
-VALUES ('Marvel', 'https://drive.google.com/uc?export=view&id=1-t8984O1nJcQlMg3pYwY-lJp-YKOaF0g');
+INSERT INTO library.editors (name, description, image)
+VALUES ('DC Comics',
+        'DC Comics est un éditeur de bandes dessinées américain créé en 1934, connu pour ses super-héros emblématiques tels que Batman, Superman et Wonder Woman, ainsi que pour son univers de bandes dessinées étendu et complexe, connu sous le nom de l''univers DC. Les bandes dessinées publiées par DC Comics offrent des réflexions sur la société, la politique et la psychologie humaine, avec des personnages mémorables tels que Flash, Green Lantern, Catwoman, Joker, Lex Luthor et Darkseid. Les bandes dessinées de DC Comics ont inspiré des générations de fans de comics et continuent de captiver l''imagination des lecteurs aujourd''hui.',
+        'https://drive.google.com/uc?export=view&id=19V3mjqeLku58mZJuIgTSQRM__r2Ekd6M');
+INSERT INTO library.editors (name, description, image)
+VALUES ('Marvel',
+        'Marvel Comics est un éditeur de bandes dessinées américain connu pour ses super-héros emblématiques tels que Spider-Man, Iron Man, Hulk, Captain America et Thor. Fondé en 1939, Marvel a une longue histoire de publications écrites et dessinées par certains des plus grands talents de l''industrie de la bande dessinée. Les histoires de Marvel sont souvent axées sur l''action, l''aventure et l''humour, avec une orientation plus grand public que DC Comics. Les personnages de Marvel sont extrêmement populaires auprès des fans de comics et sont devenus des icônes de la culture populaire.',
+        'https://drive.google.com/uc?export=view&id=1-t8984O1nJcQlMg3pYwY-lJp-YKOaF0g');
 
 -- Ajout des séries
-INSERT INTO library.series (id_editor, name, image)
-VALUES (1, 'Batman', 'https://drive.google.com/uc?export=view&id=1v76EY-FiUKUw0C7JRuu-GYd7q9Ysq7ws');
-INSERT INTO library.series (id_editor, name, image)
-VALUES (1, 'Superman', 'https://drive.google.com/uc?export=view&id=1Hlt2fm9dCAWPQqMzxuRm-0DZUgWUl3wz');
-INSERT INTO library.series (id_editor, name, image)
-VALUES (2, 'Wolverine', 'https://drive.google.com/uc?export=view&id=17iS1eFU09u5jZGuGGqxeqWh_rwaDkgNI');
-INSERT INTO library.series (id_editor, name, image)
-VALUES (2, 'Spiderman', 'https://drive.google.com/uc?export=view&id=1DPviGN0Oh2Qw98CklBmYeElqdzx0WbYc');
+INSERT INTO library.series (id_editor, name, description, image)
+VALUES (1, 'Batman',
+        'Batman est une série de bandes dessinées de super-héros publiée par DC Comics depuis 1939, créée par Bob Kane et Bill Finger. La série suit les aventures de Bruce Wayne, un milliardaire de Gotham City qui, après avoir assisté au meurtre de ses parents lorsqu''il était enfant, a juré de venger leur mort en combattant le crime en tant que Batman. Les histoires de Batman sont écrites et dessinées par certains des plus grands noms de l''industrie de la bande dessinée, et couvrent une grande variété de genres, avec des intrigues complexes, des personnages bien développés, une action intense et des dessins époustouflants. Les principaux personnages de Batman incluent Alfred Pennyworth, James Gordon et plusieurs super-vilains. En somme, la série Batman est un incontournable de la bande dessinée de super-héros.',
+        'https://drive.google.com/uc?export=view&id=1v76EY-FiUKUw0C7JRuu-GYd7q9Ysq7ws');
+INSERT INTO library.series (id_editor, name, description, image)
+VALUES (1, 'Superman',
+        'Superman est l''un des super-héros les plus emblématiques de l''industrie de la bande dessinée, et la série de bandes dessinées de super-héros publiée par DC Comics depuis 1938 suit les aventures de Clark Kent, un extraterrestre qui a été envoyé sur Terre alors qu''il était bébé et qui a développé des pouvoirs extraordinaires grâce à l''exposition au soleil jaune de notre planète. Les histoires de Superman, écrites et dessinées par certains des plus grands noms de l''industrie de la bande dessinée, abordent une grande variété de thèmes allant de la science-fiction à la fantasy, en passant par les histoires d''action et les drames familiaux, et présentent des personnages profonds et des dessins saisissants. Les principaux personnages de Superman incluent Lois Lane et Lex Luthor, et d''autres personnages récurrents incluent la famille Kent et la Ligue de justice d''Amérique.',
+        'https://drive.google.com/uc?export=view&id=1Hlt2fm9dCAWPQqMzxuRm-0DZUgWUl3wz');
+INSERT INTO library.series (id_editor, name, description, image)
+VALUES (2, 'Wolverine',
+        'Wolverine est une série de bandes dessinées de super-héros publiée par Marvel Comics depuis 1982, créé par Len Wein et John Romita Sr. Il s''agit d''un personnage mutant de l''univers des X-Men qui possède des capacités de guérison accélérée et des griffes en adamantium. Les histoires de Wolverine sont souvent sombres et violentes, explorant les aspects les plus sombres de la nature humaine. Les principaux personnages de Wolverine incluent le professeur Charles Xavier et les autres membres des X-Men, ainsi que des ennemis récurrents tels que Sabretooth, Omega Red et Lady Deathstrike. En somme, la série Wolverine est une incontournable de la bande dessinée de super-héros, offrant des histoires sombres, des personnages mémorables et une action épique.',
+        'https://drive.google.com/uc?export=view&id=17iS1eFU09u5jZGuGGqxeqWh_rwaDkgNI');
+INSERT INTO library.series (id_editor, name, description, image)
+VALUES (2, 'Spiderman',
+        'Spider-Man est une série de bandes dessinées de super-héros publiée par Marvel Comics depuis 1962, créée par Stan Lee et Steve Ditko. La série suit les aventures de Peter Parker, un étudiant ordinaire qui acquiert des pouvoirs extraordinaires après avoir été mordu par une araignée radioactive. Les histoires de Spider-Man sont connues pour leur combinaison unique de drame, d''humour et d''action, avec des personnages attachants et des dessins dynamiques. Les principaux personnages incluent Mary Jane Watson, Harry Osborn, et les ennemis emblématiques tels que le Bouffon Vert, le Docteur Octopus et Venom, ajoutant de la profondeur et de la complexité à la série. En somme, Spider-Man est un classique de la bande dessinée de super-héros, ayant inspiré des générations de fans de comics.',
+        'https://drive.google.com/uc?export=view&id=1DPviGN0Oh2Qw98CklBmYeElqdzx0WbYc');
 
 -- Ajout des livres Batman
 INSERT INTO library.books (id_serie, tome, title, author, illustrator, date, image, description)
@@ -296,3 +310,27 @@ INSERT INTO library.books_statement (id_book, statement)
 VALUES (30, 'Comme neuf');
 INSERT INTO library.books_statement (id_book, statement)
 VALUES (31, 'Bon état');
+
+-- Ajout des utilisateurs
+INSERT INTO library.users (username, password, image)
+VALUES ('Batman', 'batword', 'https://drive.google.com/uc?export=view&id=1v76EY-FiUKUw0C7JRuu-GYd7q9Ysq7ws');
+INSERT INTO library.users (username, password, image)
+VALUES ('Superman', 'superword', 'https://drive.google.com/uc?export=view&id=1Hlt2fm9dCAWPQqMzxuRm-0DZUgWUl3wz');
+
+-- Ajout des librairies
+INSERT INTO library.libraries (id_user)
+VALUES (1);
+INSERT INTO library.libraries (id_user)
+VALUES (2);
+
+-- Ajout des emprunts
+INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+VALUES (1, 1, '2 semaines', '03/04/2023');
+INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+VALUES (9, 2, '3 semaines', '02/04/2023');
+
+-- Ajout des commentaires
+INSERT INTO library.comments(id_book, id_user, content, date)
+VALUES (1, 1, 'Fuck superman', '03/04/2023');
+INSERT INTO library.comments(id_book, id_user, content, date)
+VALUES (1, 2, 'Ta gueule la chauve souris', '03/04/2023');

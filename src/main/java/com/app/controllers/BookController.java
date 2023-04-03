@@ -1,5 +1,6 @@
 package com.app.controllers;
 
+import com.app.models.Comment;
 import com.app.models.books.Book;
 import com.app.models.books.BookDetails;
 import com.app.models.books.BookMinimal;
@@ -21,12 +22,12 @@ public class BookController {
     private final BookMinimalService bookMinimalService;
 
     @GetMapping
-    public List<BookMinimal> getAll() {
-        return bookMinimalService.findAll();
+    public List<BookMinimal> findAll(@RequestParam(required = false) String title) {
+        return bookMinimalService.findAll(title);
     }
 
     @GetMapping("/{id}")
-    public BookDetails getById(@PathVariable Long id) {
+    public BookDetails findById(@PathVariable Long id) {
         return bookDetailsService.findById(id).orElse(null);
     }
 
@@ -38,5 +39,10 @@ public class BookController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         bookService.deleteById(id);
+    }
+
+    @GetMapping("/{id}/comments")
+    public List<Comment> findAllCommentsByBookId(@PathVariable Long id) {
+        return bookDetailsService.findAllCommentsByBookId(id);
     }
 }

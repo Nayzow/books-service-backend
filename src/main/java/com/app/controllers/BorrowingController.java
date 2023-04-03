@@ -15,12 +15,12 @@ public class BorrowingController {
     private final BorrowingService borrowingService;
 
     @GetMapping
-    public List<Borrowing> getAll() {
+    public List<Borrowing> findAll() {
         return borrowingService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Borrowing getById(@PathVariable Long id) {
+    public Borrowing findById(@PathVariable Long id) {
         return borrowingService.findById(id).orElse(null);
     }
 
