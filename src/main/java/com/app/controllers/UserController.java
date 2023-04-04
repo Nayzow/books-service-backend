@@ -1,7 +1,9 @@
 package com.app.controllers;
 
 import com.app.models.users.User;
-import com.app.services.UserService;
+import com.app.models.users.UserDetails;
+import com.app.services.users.UserDetailsService;
+import com.app.services.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UserDetailsService userDetailsService;
 
     @GetMapping
     public List<User> findAll() {
@@ -20,8 +23,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User findById(@PathVariable Long id) {
-        return userService.findById(id).orElse(null);
+    public UserDetails findById(@PathVariable Long id) {
+        return userDetailsService.findById(id).orElse(null);
     }
 
     @PostMapping
