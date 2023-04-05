@@ -1,12 +1,14 @@
 package com.app.controllers;
 
-import com.app.models.Comment;
-import com.app.models.books.Book;
-import com.app.models.books.BookDetails;
-import com.app.models.books.BookMinimal;
-import com.app.services.books.BookDetailsService;
-import com.app.services.books.BookMinimalService;
-import com.app.services.books.BookService;
+import com.app.controllers.dtos.books.BookDTO;
+import com.app.controllers.dtos.books.BookDetailsDTO;
+import com.app.controllers.dtos.comments.CommentDTO;
+import com.app.models.Book;
+import com.app.services.BookService;
+import com.app.services.CommentService;
+import com.app.utils.mappings.books.BookDetailsMapping;
+import com.app.utils.mappings.books.BookMapping;
+import com.app.utils.mappings.comments.CommentMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +20,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
-    private final BookDetailsService bookDetailsService;
-    private final BookMinimalService bookMinimalService;
+    private final CommentService commentService;
 
     @GetMapping
-    public List<BookMinimal> findAll(@RequestParam(required = false) String title) {
-        return bookMinimalService.findAll(title);
+    public List<BookDTO> findAll(@RequestParam(required = false) String title) {
+        return bookService.findAll(title)
+                .stream()
+                .map(BookMapping::mapToDTO)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public BookDetails findById(@PathVariable Long id) {
-        return bookDetailsService.findById(id).orElse(null);
+    public BookDetailsDTO findById(@PathVariable Long id) {
+        return bookService.findById(id)
+                .map(BookDetailsMapping::mapToDTO)
+                .orElse(null);
     }
 
     @PostMapping()
@@ -42,7 +48,10 @@ public class BookController {
     }
 
     @GetMapping("/{id}/comments")
-    public List<Comment> findAllCommentsByBookId(@PathVariable Long id) {
-        return bookDetailsService.findAllCommentsByBookId(id);
+    public List<CommentDTO> findAllCommentsByBookId(@PathVariable Long id) {
+        return commentService.findAllByBookId(id)
+                .stream()
+                .map(CommentMapping::mapToDTO)
+                .toList();
     }
 }

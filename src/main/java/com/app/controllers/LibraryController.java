@@ -1,6 +1,8 @@
 package com.app.controllers;
 
+import com.app.models.Borrowing;
 import com.app.models.Library;
+import com.app.services.BorrowingService;
 import com.app.services.LibraryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LibraryController {
     private final LibraryService libraryService;
+    private final BorrowingService borrowingService;
 
     @GetMapping
     public List<Library> findAll() {
@@ -32,5 +35,10 @@ public class LibraryController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         libraryService.deleteById(id);
+    }
+
+    @GetMapping("/{id}/borrowings")
+    public List<Borrowing> findAllBorrowingsByIdLibrary(@PathVariable Long id) {
+        return borrowingService.findAllByIdLibrary(id);
     }
 }

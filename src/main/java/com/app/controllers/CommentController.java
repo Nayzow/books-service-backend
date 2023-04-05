@@ -1,9 +1,9 @@
 package com.app.controllers;
 
+import com.app.controllers.dtos.comments.CommentDTO;
 import com.app.models.Comment;
-import com.app.models.books.Book;
 import com.app.services.CommentService;
-import com.app.services.books.BookService;
+import com.app.utils.mappings.comments.CommentMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
-    private final BookService bookService;
 
     @GetMapping
-    public List<Comment> findAll() {
-        return commentService.findAll();
+    public List<CommentDTO> findAll() {
+        return commentService.findAll()
+                .stream()
+                .map(CommentMapping::mapToDTO)
+                .toList();
     }
 
     @GetMapping("/{id}")

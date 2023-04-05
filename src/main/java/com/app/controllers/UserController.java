@@ -1,9 +1,9 @@
 package com.app.controllers;
 
-import com.app.models.users.User;
-import com.app.models.users.UserDetails;
-import com.app.services.users.UserDetailsService;
-import com.app.services.users.UserService;
+import com.app.controllers.dtos.users.UserDTO;
+import com.app.models.User;
+import com.app.services.UserService;
+import com.app.utils.mappings.users.UserMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,16 +15,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final UserDetailsService userDetailsService;
 
     @GetMapping
-    public List<User> findAll() {
-        return userService.findAll();
+    public List<UserDTO> findAll() {
+        return userService.findAll()
+                .stream()
+                .map(UserMapping::mapToDTO)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public UserDetails findById(@PathVariable Long id) {
-        return userDetailsService.findById(id).orElse(null);
+    public User findById(@PathVariable Long id) {
+        return userService.findById(id).orElse(null);
     }
 
     @PostMapping

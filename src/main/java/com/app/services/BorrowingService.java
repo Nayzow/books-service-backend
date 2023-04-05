@@ -28,4 +28,8 @@ public class BorrowingService {
     public void deleteById(Long id) {
         borrowingRepository.deleteById(id);
     }
+
+    public List<Borrowing> findAllByIdLibrary(Long id) {
+        return borrowingRepository.findAllByLibraryId(id);
+    }
 }

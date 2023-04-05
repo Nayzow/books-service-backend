@@ -1,21 +1,21 @@
 CREATE DATABASE library;
 
+CREATE TABLE library.libraries
+(
+    id      BIGINT,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE library.users
 (
     id       BIGINT AUTO_INCREMENT,
+    id_library BIGINT NOT NULL,
     username VARCHAR(200) NOT NULL,
     password VARCHAR(200) NOT NULL,
     image    VARCHAR(500) NOT NULL DEFAULT 'https://drive.google.com/uc?export=view&id=1kWAD-v4gugA_edk33b0O-KAtQZxVUiuF',
     role     VARCHAR(150) NOT NULL DEFAULT 'utilisateur',
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE library.libraries
-(
-    id      BIGINT AUTO_INCREMENT,
-    id_user BIGINT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_user) REFERENCES users (id)
+    FOREIGN KEY (id_library) REFERENCES libraries (id)
 );
 
 CREATE TABLE library.editors
@@ -311,17 +311,17 @@ VALUES (30, 'Comme neuf');
 INSERT INTO library.books_statement (id_book, statement)
 VALUES (31, 'Bon état');
 
--- Ajout des utilisateurs
-INSERT INTO library.users (username, password, image)
-VALUES ('Batman', 'batword', 'https://drive.google.com/uc?export=view&id=1v76EY-FiUKUw0C7JRuu-GYd7q9Ysq7ws');
-INSERT INTO library.users (username, password, image)
-VALUES ('Superman', 'superword', 'https://drive.google.com/uc?export=view&id=1Hlt2fm9dCAWPQqMzxuRm-0DZUgWUl3wz');
-
 -- Ajout des librairies
-INSERT INTO library.libraries (id_user)
+INSERT INTO library.libraries (id)
 VALUES (1);
-INSERT INTO library.libraries (id_user)
+INSERT INTO library.libraries (id)
 VALUES (2);
+
+-- Ajout des utilisateurs
+INSERT INTO library.users (id_library, username, password, image)
+VALUES (1, 'Batman', 'batword', 'https://drive.google.com/uc?export=view&id=1v76EY-FiUKUw0C7JRuu-GYd7q9Ysq7ws');
+INSERT INTO library.users (id_library, username, password, image)
+VALUES (2, 'Superman', 'superword', 'https://drive.google.com/uc?export=view&id=1Hlt2fm9dCAWPQqMzxuRm-0DZUgWUl3wz');
 
 -- Ajout des emprunts
 INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)

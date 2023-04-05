@@ -28,4 +28,8 @@ public class CommentService {
     public void deleteById(Long id) {
         commentRepository.deleteById(id);
     }
+
+    public List<Comment> findAllByBookId(Long id) {
+        return commentRepository.findAllByBookId(id);
+    }
 }

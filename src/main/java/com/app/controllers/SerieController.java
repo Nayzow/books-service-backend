@@ -1,12 +1,14 @@
 package com.app.controllers;
 
-import com.app.models.books.Book;
-import com.app.models.series.Serie;
-import com.app.models.series.SerieDetails;
-import com.app.models.series.SerieMinimal;
-import com.app.services.series.SerieDetailsService;
-import com.app.services.series.SerieMinimalService;
-import com.app.services.series.SerieService;
+import com.app.controllers.dtos.books.BookDTO;
+import com.app.controllers.dtos.series.SerieDTO;
+import com.app.controllers.dtos.series.SerieDetailsDTO;
+import com.app.models.Serie;
+import com.app.services.BookService;
+import com.app.services.SerieService;
+import com.app.utils.mappings.books.BookMapping;
+import com.app.utils.mappings.series.SerieDetailsMapping;
+import com.app.utils.mappings.series.SerieMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +20,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SerieController {
     private final SerieService serieService;
-    private final SerieDetailsService serieDetailsService;
-    private final SerieMinimalService serieMinimalService;
+    private final BookService bookService;
 
     @GetMapping
-    public List<SerieMinimal> findAll(@RequestParam(required = false) String name) {
-        return serieMinimalService.findAll(name);
+    public List<SerieDTO> findAll(@RequestParam(required = false) String name) {
+        return serieService.findAll(name)
+                .stream()
+                .map(SerieMapping::mapToDTO)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public SerieDetails findById(@PathVariable Long id) {
-        return serieDetailsService.findById(id).orElse(null);
+    public SerieDetailsDTO findById(@PathVariable Long id) {
+        return serieService.findById(id)
+                .map(SerieDetailsMapping::mapToDTO)
+                .orElse(null);
     }
 
     @PostMapping()
@@ -42,7 +48,10 @@ public class SerieController {
     }
 
     @GetMapping("/{id}/books")
-    public List<Book> findAllBooksByIdSerie(@PathVariable Long id) {
-        return serieDetailsService.findAllBooksByIdSerie(id);
+    public List<BookDTO> findAllBySerieId(@PathVariable Long id) {
+        return bookService.findAllBySerieId(id)
+                .stream()
+                .map(BookMapping::mapToDTO)
+                .toList();
     }
 }

@@ -1,6 +1,5 @@
 package com.app.models;
 
-import com.app.models.books.Book;
 import jakarta.persistence.*;
 import lombok.Data;
 
