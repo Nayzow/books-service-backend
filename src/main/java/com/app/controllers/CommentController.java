@@ -25,8 +25,10 @@ public class CommentController {
     }
 
     @GetMapping("/{id}")
-    public Comment findById(@PathVariable Long id) {
-        return commentService.findById(id).orElse(null);
+    public CommentDTO findById(@PathVariable Long id) {
+        return commentService.findById(id)
+                .map(CommentMapping::mapToDTO)
+                .orElse(null);
     }
 
     @PostMapping()

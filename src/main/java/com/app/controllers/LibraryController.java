@@ -1,9 +1,10 @@
 package com.app.controllers;
 
-import com.app.models.Borrowing;
+import com.app.controllers.dtos.borrowings.BorrowingDTO;
 import com.app.models.Library;
 import com.app.services.BorrowingService;
 import com.app.services.LibraryService;
+import com.app.utils.mappings.borrowings.BorrowingMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,10 @@ public class LibraryController {
     }
 
     @GetMapping("/{id}/borrowings")
-    public List<Borrowing> findAllBorrowingsByIdLibrary(@PathVariable Long id) {
-        return borrowingService.findAllByIdLibrary(id);
+    public List<BorrowingDTO> findAllBorrowingsByIdLibrary(@PathVariable Long id) {
+        return borrowingService.findAllByIdLibrary(id)
+                .stream()
+                .map(BorrowingMapping::mapToDTO)
+                .toList();
     }
 }

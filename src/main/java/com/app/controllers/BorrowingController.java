@@ -1,7 +1,9 @@
 package com.app.controllers;
 
+import com.app.controllers.dtos.borrowings.BorrowingDTO;
 import com.app.models.Borrowing;
 import com.app.services.BorrowingService;
+import com.app.utils.mappings.borrowings.BorrowingMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +17,18 @@ public class BorrowingController {
     private final BorrowingService borrowingService;
 
     @GetMapping
-    public List<Borrowing> findAll() {
-        return borrowingService.findAll();
+    public List<BorrowingDTO> findAll() {
+        return borrowingService.findAll()
+                .stream()
+                .map(BorrowingMapping::mapToDTO)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public Borrowing findById(@PathVariable Long id) {
-        return borrowingService.findById(id).orElse(null);
+    public BorrowingDTO findById(@PathVariable Long id) {
+        return borrowingService.findById(id)
+                .map(BorrowingMapping::mapToDTO)
+                .orElse(null);
     }
 
     @PostMapping()

@@ -1,11 +1,14 @@
 package com.app.controllers;
 
+import com.app.controllers.dtos.bookStatement.BookStatementDTO;
 import com.app.controllers.dtos.books.BookDTO;
 import com.app.controllers.dtos.books.BookDetailsDTO;
 import com.app.controllers.dtos.comments.CommentDTO;
 import com.app.models.Book;
 import com.app.services.BookService;
+import com.app.services.BookStatementService;
 import com.app.services.CommentService;
+import com.app.utils.mappings.bookStatement.BookStatementMapping;
 import com.app.utils.mappings.books.BookDetailsMapping;
 import com.app.utils.mappings.books.BookMapping;
 import com.app.utils.mappings.comments.CommentMapping;
@@ -21,6 +24,7 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
     private final CommentService commentService;
+    private final BookStatementService bookStatementService;
 
     @GetMapping
     public List<BookDTO> findAll(@RequestParam(required = false) String title) {
@@ -52,6 +56,14 @@ public class BookController {
         return commentService.findAllByBookId(id)
                 .stream()
                 .map(CommentMapping::mapToDTO)
+                .toList();
+    }
+
+    @GetMapping("/{id}/statements")
+    public List<BookStatementDTO> findAllBookStatementByBookId(@PathVariable Long id) {
+        return bookStatementService.findAllByBookId(id)
+                .stream()
+                .map(BookStatementMapping::mapToDTO)
                 .toList();
     }
 }

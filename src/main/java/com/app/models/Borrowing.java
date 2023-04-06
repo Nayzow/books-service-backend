@@ -10,6 +10,7 @@ public class Borrowing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String duration;
 
     @ManyToOne
     @JoinColumn(name="id_library")
