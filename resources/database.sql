@@ -2,19 +2,19 @@ CREATE DATABASE library;
 
 CREATE TABLE library.libraries
 (
-    id BIGINT,
+    id BIGINT AUTO_INCREMENT,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE library.users
 (
     id         BIGINT AUTO_INCREMENT,
-    id_library BIGINT       NOT NULL,
+    id_library BIGINT       NULL,
     email      VARCHAR(100) NOT NULL,
     username   VARCHAR(200) NOT NULL,
     password   VARCHAR(200) NOT NULL,
-    image      VARCHAR(500) NOT NULL DEFAULT 'https://drive.google.com/uc?export=view&id=1kWAD-v4gugA_edk33b0O-KAtQZxVUiuF',
-    role       VARCHAR(150) NOT NULL DEFAULT 'utilisateur',
+    image      VARCHAR(500) NULL DEFAULT 'https://drive.google.com/uc?export=view&id=1kWAD-v4gugA_edk33b0O-KAtQZxVUiuF',
+    role       VARCHAR(150) NULL DEFAULT 'utilisateur',
     PRIMARY KEY (id),
     FOREIGN KEY (id_library) REFERENCES libraries (id)
 );
@@ -91,11 +91,11 @@ CREATE TABLE library.borrowings
 INSERT INTO library.editors (name, description, image)
 VALUES ('DC Comics',
         'DC Comics est un éditeur de bandes dessinées américain créé en 1934, connu pour ses super-héros emblématiques tels que Batman, Superman et Wonder Woman, ainsi que pour son univers de bandes dessinées étendu et complexe, connu sous le nom de l''univers DC. Les bandes dessinées publiées par DC Comics offrent des réflexions sur la société, la politique et la psychologie humaine, avec des personnages mémorables tels que Flash, Green Lantern, Catwoman, Joker, Lex Luthor et Darkseid. Les bandes dessinées de DC Comics ont inspiré des générations de fans de comics et continuent de captiver l''imagination des lecteurs aujourd''hui.',
-        'https://drive.google.com/uc?export=view&id=19V3mjqeLku58mZJuIgTSQRM__r2Ekd6M');
+        'https://drive.google.com/uc?export=view&id=1F7Iurdz4P5QX4-OBd_OHoloTSEnj8rUf');
 INSERT INTO library.editors (name, description, image)
 VALUES ('Marvel',
         'Marvel Comics est un éditeur de bandes dessinées américain connu pour ses super-héros emblématiques tels que Spider-Man, Iron Man, Hulk, Captain America et Thor. Fondé en 1939, Marvel a une longue histoire de publications écrites et dessinées par certains des plus grands talents de l''industrie de la bande dessinée. Les histoires de Marvel sont souvent axées sur l''action, l''aventure et l''humour, avec une orientation plus grand public que DC Comics. Les personnages de Marvel sont extrêmement populaires auprès des fans de comics et sont devenus des icônes de la culture populaire.',
-        'https://drive.google.com/uc?export=view&id=1-t8984O1nJcQlMg3pYwY-lJp-YKOaF0g');
+        'https://drive.google.com/uc?export=view&id=1qmmpyv_VLoqUSkzCeGOaul2nFGW3Lcu1');
 
 -- Ajout des séries
 INSERT INTO library.series (id_editor, name, description, image)
@@ -880,26 +880,26 @@ INSERT INTO library.libraries (id)
 VALUES (7);
 
 -- Ajout des utilisateurs
-INSERT INTO library.users (id_library, username, password, email, image)
-VALUES (1, 'Batman', 'batword', 'batman@batmail.com',
+INSERT INTO library.users (id_library, email, username, password, image)
+VALUES (1, 'batman@batmail.com', 'Batman', 'batword',
         'https://drive.google.com/uc?export=view&id=1v76EY-FiUKUw0C7JRuu-GYd7q9Ysq7ws');
-INSERT INTO library.users (id_library, username, password, email, image)
-VALUES (2, 'Superman', 'superword', 'superman@supermail.com',
+INSERT INTO library.users (id_library, email, username, password, image)
+VALUES (2, 'superman@supermail.com', 'Superman', 'superword',
         'https://drive.google.com/uc?export=view&id=1Hlt2fm9dCAWPQqMzxuRm-0DZUgWUl3wz');
-INSERT INTO library.users (id_library, username, password, email, image)
-VALUES (3, 'Wolverine', 'wolverword', 'wolverine@wolvermail.com',
+INSERT INTO library.users (id_library, email, username, password, image)
+VALUES (3, 'wolverine@wolvermail.com', 'Wolverine', 'wolverword',
         'https://drive.google.com/uc?export=view&id=17iS1eFU09u5jZGuGGqxeqWh_rwaDkgNI');
-INSERT INTO library.users (id_library, username, password, email, image)
-VALUES (4, 'Spiderman', 'spiderword', 'superman@spidermail.com',
+INSERT INTO library.users (id_library, email, username, password, image)
+VALUES (4, 'superman@spidermail.com', 'Spiderman', 'spiderword',
         'https://drive.google.com/uc?export=view&id=1DPviGN0Oh2Qw98CklBmYeElqdzx0WbYc');
-INSERT INTO library.users (id_library, username, password, email, image)
-VALUES (5, 'Hulk', 'hulkword', 'hulk@hulkmail.com',
+INSERT INTO library.users (id_library, email, username, password, image)
+VALUES (5, 'hulk@hulkmail.com', 'Hulk', 'hulkword',
         'https://drive.google.com/uc?export=view&id=1qYwy-GyXGGqiFnazrCDtldvf5kxnyIJN');
-INSERT INTO library.users (id_library, username, password, email, image)
-VALUES (6, 'Wonder Woman', 'wonderword', 'wonder-woman@wondermail.com',
+INSERT INTO library.users (id_library, email, username, password, image)
+VALUES (6, 'wonder-woman@wondermail.com', 'Wonder Woman', 'wonderword',
         'https://drive.google.com/uc?export=view&id=1NJfh8JKDVJKEIH57CKCXUaAS7ijKMDA3');
-INSERT INTO library.users (id_library, username, password, email, image)
-VALUES (7, 'Ironman', 'ironword', 'ironman@ironmail.com',
+INSERT INTO library.users (id_library, email, username, password, image)
+VALUES (7, 'ironman@ironmail.com', 'Ironman', 'ironword',
         'https://drive.google.com/uc?export=view&id=1JbEhKBKMfabQnD-BH2k00ADU-nGwHKSi');
 
 -- Ajout des emprunts

@@ -8,8 +8,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserDetailsDTO {
     private Long id;
-    private String username;
     private String email;
+    private String username;
     private String password;
     private String image;
     private String role;
