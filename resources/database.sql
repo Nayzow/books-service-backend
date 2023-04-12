@@ -1,22 +1,14 @@
 CREATE DATABASE library;
 
-CREATE TABLE library.libraries
-(
-    id BIGINT AUTO_INCREMENT,
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE library.users
 (
-    id         BIGINT AUTO_INCREMENT,
-    id_library BIGINT       NULL,
-    email      VARCHAR(100) NOT NULL,
-    username   VARCHAR(200) NOT NULL,
-    password   VARCHAR(200) NOT NULL,
-    image      VARCHAR(500) NULL DEFAULT 'https://drive.google.com/uc?export=view&id=1kWAD-v4gugA_edk33b0O-KAtQZxVUiuF',
-    role       VARCHAR(150) NULL DEFAULT 'utilisateur',
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_library) REFERENCES libraries (id)
+    id       BIGINT AUTO_INCREMENT,
+    email    VARCHAR(100) NOT NULL,
+    username VARCHAR(200) NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    image    VARCHAR(500) NULL DEFAULT 'https://drive.google.com/uc?export=view&id=1kWAD-v4gugA_edk33b0O-KAtQZxVUiuF',
+    role     VARCHAR(150) NULL DEFAULT 'utilisateur',
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE library.editors
@@ -79,12 +71,12 @@ CREATE TABLE library.borrowings
 (
     id                BIGINT AUTO_INCREMENT,
     id_book_statement BIGINT       NULL,
-    id_library        BIGINT       NULL,
+    id_user           BIGINT       NULL,
     duration          VARCHAR(150) NULL,
     date              VARCHAR(150) NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_book_statement) REFERENCES books_statement (id),
-    FOREIGN KEY (id_library) REFERENCES libraries (id)
+    FOREIGN KEY (id_user) REFERENCES users (id)
 );
 
 -- Ajout des éditeurs
@@ -311,7 +303,8 @@ VALUES (6, 3, 'Ame-Comi: Wonder Woman', 'Justin Gray, Jimmy Palmiotti', 'Amanda 
         'https://readcomiconline.li/Uploads/Etc/7-17-2017/82481743071648.jpg',
         'L''armée américaine a des informations sur une attaque imminente sur une île mystérieuse nommée Themyscira. À part son nom, la seule chose connue de l''île est qu''elle est peuplée d''une race de femmes guerrières. Heureusement, ces Amazones sont également prévenues de l''attaque et se préparent au combat. Une guerrière spéciale, la princesse Diana, peut goûter à la victoire... si seulement elle pouvait convaincre sa mère qu''elle est vraiment prête à se battre !');
 INSERT INTO library.books (id_serie, tome, title, author, illustrator, date, image, description)
-VALUES (6, 4, 'Wonder Woman: Her Greatest Battles', 'Various', 'John Byrne, Cliff Chiang, Jim Lee, George Pérez', 'February 2017',
+VALUES (6, 4, 'Wonder Woman: Her Greatest Battles', 'Various', 'John Byrne, Cliff Chiang, Jim Lee, George Pérez',
+        'February 2017',
         'https://readcomiconline.li/Uploads/Etc/6-1-2017/6254824307197.jpg',
         'Le compagnon idéal du film très attendu Wonder Woman de 2017 est ici. Avec les pouvoirs d''un dieu et l''esprit combatif d''une Amazone, Wonder Woman est la plus féroce défenseure de la Terre. Sur Themyscira, Diana a été formée dès sa naissance pour devenir une guerrière. Ses compétences au combat sont inégalées, tout comme ses bracelets pare-balles et son Lasso de vérité. Maintenant, revivez ses plus grands triomphes !');
 INSERT INTO library.books (id_serie, tome, title, author, illustrator, date, image, description)
@@ -331,7 +324,8 @@ VALUES (6, 8, 'Wonder Woman and the Star Riders', 'Various', 'Various', 'Janvier
         'https://readcomiconline.li/Uploads/Etc/10-16-2020/98125643071107.jpg',
         'Cette bande dessinée faisait partie d''un ensemble de quatre bandes dessinées qui était un cadeau gratuit dans une boîte de céréales Cinnamon Mini Buns. Les autres livres étaient Justice League America, Flash et Superman. Cette bande dessinée ne mesure qu''environ quatre pouces de haut et trois pouces de large. Aucun créateur n''est répertorié nulle part dans le livre.');
 INSERT INTO library.books (id_serie, tome, title, author, illustrator, date, image, description)
-VALUES (6, 9, 'Wonder Woman: The Last True Hero', 'William Messner-Loebs', 'Paris Cullins, Lee Moder, Jill Thompson', 'August 4 2020',
+VALUES (6, 9, 'Wonder Woman: The Last True Hero', 'William Messner-Loebs', 'Paris Cullins, Lee Moder, Jill Thompson',
+        'August 4 2020',
         'https://readcomiconline.li/Uploads/Etc/8-5-2020/79886743071171.jpg',
         'En 1992, Wonder Woman est entrée dans une nouvelle ère grâce à l''écrivain primé William Messner-Loebs. Commençant par une rencontre avec Deathstroke et un combat avec son vieil ennemi le Cheetah, la course de Loebs a vu Wonder Woman prise dans l''ombre sombre de l''événement Eclipso et emprisonnée sur une planète sauvage.');
 INSERT INTO library.books (id_serie, tome, title, author, illustrator, date, image, description)
@@ -341,7 +335,8 @@ VALUES (6, 10, 'Sensational Wonder Woman', 'Stephanie Phillips', 'Meghan Hetrick
 
 -- Ajout des livres Ironman
 INSERT INTO library.books (id_serie, tome, title, author, illustrator, date, image, description)
-VALUES (7, 1, 'The Indomitable Iron Man', 'Alexander Irvine, Duane Swierczynski, Howard Chaykin, Paul Cornell', 'Manuel Garcia, Howard Chaykin, Nelson (Nelson DeCastro), William Rosado', 'Février 2010',
+VALUES (7, 1, 'The Indomitable Iron Man', 'Alexander Irvine, Duane Swierczynski, Howard Chaykin, Paul Cornell',
+        'Manuel Garcia, Howard Chaykin, Nelson (Nelson DeCastro), William Rosado', 'Février 2010',
         'https://readcomiconline.li/Uploads/Etc/3-29-2020/96519143071417.jpg',
         'Iron Man se bat avec une sonde spatiale hyper-intelligente déterminée à terraformer la planète ! Et Tony combat Titanium Man tout en répondant aux appels de Stark International ! Tout cela et plus encore dans ce tout nouveau one-shot tout en action et en noir et blanc dans l''esprit des magazines Mighty Marvel d''autrefois, mais TOUT MAINTENANT avec style ! The Iron Mania ne s''arrête jamais un instant sur ces quatre histoires écrites par certains des écrivains les plus en vogue de Marvel !');
 INSERT INTO library.books (id_serie, tome, title, author, illustrator, date, image, description)
@@ -357,7 +352,8 @@ VALUES (7, 4, 'Tony Stark: Iron Man', 'Dan Slott', 'Valerio Schiti', 'Juin 2018'
         'https://readcomiconline.li/Uploads/Etc/6-21-2018/71434043071362.jpg',
         'PRENEZ L''ENVOL AVEC DAN SLOTT & VALERIO SCHITI ! De la pointe des rêves de demain à la pointe de l''imagination, un homme plane toujours à la pointe de l''aventure ! Vous connaissez son nom. Tony Stark est Iron Man. Et Iron Man… est une idée. Toujours en évolution. Évolue constamment. Une idée sans limite ! Envolez-vous avec DAN SLOTT (AMAZING SPIDER-MAN) et VALERIO SCHITI (GUARDIANS OF THE GALAXY) alors qu''ils propulsent l''ultime héros autodidacte vers de nouveaux sommets d''inventivité ! Tony Stark est Iron Man. Le futur c''est maintenant. Accrochez-vous !');
 INSERT INTO library.books (id_serie, tome, title, author, illustrator, date, image, description)
-VALUES (7, 5, 'Iron Man Epic Collection', 'Robert Bernstein, Al Hartley, Stan Lee, Larry Lieber, Don Rico', 'Steve Ditko, Don Heck, Jack Kirby', '2013',
+VALUES (7, 5, 'Iron Man Epic Collection', 'Robert Bernstein, Al Hartley, Stan Lee, Larry Lieber, Don Rico',
+        'Steve Ditko, Don Heck, Jack Kirby', '2013',
         'https://readcomiconline.li/Uploads/Etc/11-2-2018/53118043071868.jpg',
         'Les premières apparitions de Tony Stark, Iron Man ! Lancé en 1963 sous Tales of Suspense, Iron Man représentait un autre idéal héroïque pour les bandes dessinées Marvel. Tony Stark est un industriel millionnaire de la jet-set, mais après un tragique accident, il enfile le costume en alliage d''aluminium d''Iron Man ! L''origine de l''un des personnages les plus aimés de Marvel !');
 INSERT INTO library.books (id_serie, tome, title, author, illustrator, date, image, description)
@@ -863,87 +859,71 @@ VALUES (59, 'Très bon état');
 INSERT INTO library.books_statement (id_book, statement)
 VALUES (60, 'Comme neuf');
 
--- Ajout des librairies
-INSERT INTO library.libraries (id)
-VALUES (1);
-INSERT INTO library.libraries (id)
-VALUES (2);
-INSERT INTO library.libraries (id)
-VALUES (3);
-INSERT INTO library.libraries (id)
-VALUES (4);
-INSERT INTO library.libraries (id)
-VALUES (5);
-INSERT INTO library.libraries (id)
-VALUES (6);
-INSERT INTO library.libraries (id)
-VALUES (7);
-
 -- Ajout des utilisateurs
-INSERT INTO library.users (id_library, email, username, password, image)
-VALUES (1, 'batman@batmail.com', 'Batman', 'batword',
+INSERT INTO library.users (email, username, password, image)
+VALUES ('batman@batmail.com', 'Batman', 'batword',
         'https://drive.google.com/uc?export=view&id=1v76EY-FiUKUw0C7JRuu-GYd7q9Ysq7ws');
-INSERT INTO library.users (id_library, email, username, password, image)
-VALUES (2, 'superman@supermail.com', 'Superman', 'superword',
+INSERT INTO library.users (email, username, password, image)
+VALUES ('superman@supermail.com', 'Superman', 'superword',
         'https://drive.google.com/uc?export=view&id=1Hlt2fm9dCAWPQqMzxuRm-0DZUgWUl3wz');
-INSERT INTO library.users (id_library, email, username, password, image)
-VALUES (3, 'wolverine@wolvermail.com', 'Wolverine', 'wolverword',
+INSERT INTO library.users (email, username, password, image)
+VALUES ('wolverine@wolvermail.com', 'Wolverine', 'wolverword',
         'https://drive.google.com/uc?export=view&id=17iS1eFU09u5jZGuGGqxeqWh_rwaDkgNI');
-INSERT INTO library.users (id_library, email, username, password, image)
-VALUES (4, 'superman@spidermail.com', 'Spiderman', 'spiderword',
+INSERT INTO library.users (email, username, password, image)
+VALUES ('superman@spidermail.com', 'Spiderman', 'spiderword',
         'https://drive.google.com/uc?export=view&id=1DPviGN0Oh2Qw98CklBmYeElqdzx0WbYc');
-INSERT INTO library.users (id_library, email, username, password, image)
-VALUES (5, 'hulk@hulkmail.com', 'Hulk', 'hulkword',
+INSERT INTO library.users (email, username, password, image)
+VALUES ('hulk@hulkmail.com', 'Hulk', 'hulkword',
         'https://drive.google.com/uc?export=view&id=1qYwy-GyXGGqiFnazrCDtldvf5kxnyIJN');
-INSERT INTO library.users (id_library, email, username, password, image)
-VALUES (6, 'wonder-woman@wondermail.com', 'Wonder Woman', 'wonderword',
+INSERT INTO library.users (email, username, password, image)
+VALUES ('wonder-woman@wondermail.com', 'Wonder Woman', 'wonderword',
         'https://drive.google.com/uc?export=view&id=1NJfh8JKDVJKEIH57CKCXUaAS7ijKMDA3');
-INSERT INTO library.users (id_library, email, username, password, image)
-VALUES (7, 'ironman@ironmail.com', 'Ironman', 'ironword',
+INSERT INTO library.users (email, username, password, image)
+VALUES ('ironman@ironmail.com', 'Ironman', 'ironword',
         'https://drive.google.com/uc?export=view&id=1JbEhKBKMfabQnD-BH2k00ADU-nGwHKSi');
 
 -- Ajout des emprunts
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (1, 1, '2 semaines', '03/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (6, 1, '3 semaines', '04/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (26, 1, '1 semaine', '05/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (9, 2, '3 semaines', '02/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (23, 2, '2 semaines', '03/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (5, 2, '1 semaine', '02/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (9, 3, '1 semaine', '06/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (25, 3, '3 semaines', '02/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (46, 3, '2 semaines', '03/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (35, 4, '1 semaine', '02/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (45, 4, '2 semaines', '06/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (24, 4, '2 semaines', '03/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (52, 5, '2 semaines', '07/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (16, 5, '4 semaines', '06/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (8, 5, '3 semaines', '08/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (56, 6, '2 semaines', '07/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (22, 6, '4 semaines', '06/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (18, 6, '3 semaines', '08/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (15, 7, '2 semaines', '07/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (48, 7, '4 semaines', '06/04/2023');
-INSERT INTO library.borrowings(id_book_statement, id_library, duration, date)
+INSERT INTO library.borrowings(id_book_statement, id_user, duration, date)
 VALUES (35, 7, '3 semaines', '08/04/2023');
 
 -- Ajout des commentaires

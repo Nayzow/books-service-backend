@@ -13,8 +13,8 @@ public class Borrowing {
     private String duration;
 
     @ManyToOne
-    @JoinColumn(name="id_library")
-    private Library library;
+    @JoinColumn(name="id_user")
+    private User user;
 
     @OneToOne
     @JoinColumn(name="id_book_statement")

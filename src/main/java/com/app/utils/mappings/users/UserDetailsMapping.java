@@ -11,8 +11,7 @@ public class UserDetailsMapping {
                 user.getUsername(),
                 user.getPassword(),
                 user.getImage(),
-                user.getRole(),
-                user.getLibrary()
+                user.getRole()
         );
     }
 }

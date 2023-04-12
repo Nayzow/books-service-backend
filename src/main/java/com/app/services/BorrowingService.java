@@ -29,7 +29,7 @@ public class BorrowingService {
         borrowingRepository.deleteById(id);
     }
 
-    public List<Borrowing> findAllByIdLibrary(Long id) {
-        return borrowingRepository.findAllByLibraryId(id);
+    public List<Borrowing> findAllByUserId(Long id) {
+        return borrowingRepository.findAllByUserId(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.app.services;
 
+import com.app.models.Borrowing;
 import com.app.models.User;
 import com.app.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +40,9 @@ public class UserService {
 
     public Boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    public User findByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
     }
 }

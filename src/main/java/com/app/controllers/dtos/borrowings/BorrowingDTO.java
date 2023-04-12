@@ -1,7 +1,7 @@
 package com.app.controllers.dtos.borrowings;
 
 import com.app.controllers.dtos.bookStatement.BookStatementDTO;
-import com.app.models.Library;
+import com.app.controllers.dtos.users.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,6 +10,6 @@ import lombok.Data;
 public class BorrowingDTO {
     private Long id;
     private String duration;
-    private Library library;
+    private UserDTO user;
     private BookStatementDTO bookStatement;
 }

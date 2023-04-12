@@ -15,8 +15,4 @@ public class User {
     private String password;
     private String image;
     private String role;
-
-    @OneToOne()
-    @JoinColumn(name="id_library")
-    private Library library;
 }
