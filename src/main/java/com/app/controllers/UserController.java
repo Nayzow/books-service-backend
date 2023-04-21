@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -55,13 +55,5 @@ public class UserController {
                 .stream()
                 .map(BorrowingMapping::mapToDTO)
                 .toList();
-    }
-
-    @GetMapping("/login")
-    public UserDTO findUserByUsernameAndPassword(@RequestParam String username, @RequestParam String password) {
-        if (userService.existsByUsername(username)) {
-            return UserMapping.mapToDTO(userService.findByUsernameAndPassword(username, password));
-        }
-        return null;
     }
 }

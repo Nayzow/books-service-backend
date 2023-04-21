@@ -42,7 +42,11 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
-    public User findByUsernameAndPassword(String username, String password) {
+    public Boolean existsByUsernameAndPassword(String username, String password) {
+        return userRepository.existsByUsernameAndPassword(username, password);
+    }
+
+    public Optional<User> findByUsernameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
     }
 }
